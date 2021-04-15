@@ -121,7 +121,7 @@ class Stats extends Controller
         ]);
 
         return Datatables::of($query)
-            ->edit_column('route_name', function ($row) {
+            ->editColumn('route_name', function ($row) {
                 $path = $row->routePath;
 
                 return    $row->routePath
@@ -129,7 +129,7 @@ class Stats extends Controller
                             : ($row->path ? $row->path->path : '');
             })
 
-            ->edit_column('route', function ($row) {
+            ->editColumn('route', function ($row) {
                 $route = null;
 
                 if ($row->routePath) {
@@ -141,7 +141,7 @@ class Stats extends Controller
                 return $route;
             })
 
-            ->edit_column('query', function ($row) {
+            ->editColumn('query', function ($row) {
                 $query = null;
 
                 if ($row->logQuery) {
@@ -153,23 +153,23 @@ class Stats extends Controller
                 return $query;
             })
 
-            ->edit_column('is_ajax', function ($row) {
+            ->editColumn('is_ajax', function ($row) {
                 return    $row->is_ajax ? 'yes' : 'no';
             })
 
-            ->edit_column('is_secure', function ($row) {
+            ->editColumn('is_secure', function ($row) {
                 return    $row->is_secure ? 'yes' : 'no';
             })
 
-            ->edit_column('is_json', function ($row) {
+            ->editColumn('is_json', function ($row) {
                 return    $row->is_json ? 'yes' : 'no';
             })
 
-            ->edit_column('wants_json', function ($row) {
+            ->editColumn('wants_json', function ($row) {
                 return    $row->wants_json ? 'yes' : 'no';
             })
 
-            ->edit_column('error', function ($row) {
+            ->editColumn('error', function ($row) {
                 return    $row->error ? 'yes' : 'no';
             })
 
@@ -211,7 +211,7 @@ class Stats extends Controller
         ]);
 
         return Datatables::of($query)
-                ->edit_column('updated_at', function ($row) {
+                ->editColumn('updated_at', function ($row) {
                     return "{$row->updated_at->diffForHumans()}";
                 })
                 ->make(true);
@@ -229,10 +229,10 @@ class Stats extends Controller
         $username_column = Tracker::getConfig('authenticated_user_username_column');
 
         return Datatables::of(Tracker::users($session->getMinutes(), false))
-                ->edit_column('user_id', function ($row) use ($username_column) {
+                ->editColumn('user_id', function ($row) use ($username_column) {
                     return "{$row->user->$username_column}";
                 })
-                ->edit_column('updated_at', function ($row) {
+                ->editColumn('updated_at', function ($row) {
                     return "{$row->updated_at->diffForHumans()}";
                 })
                 ->make(true);
@@ -260,13 +260,13 @@ class Stats extends Controller
         ]);
 
         return Datatables::of($query)
-                ->edit_column('id', function ($row) {
+            ->addColumn('id', function ($row) {
                     $uri = route('tracker.stats.log', $row->uuid);
-
+                
                     return '<a href="'.$uri.'">'.$row->id.'</a>';
                 })
 
-                ->add_column('country', function ($row) {
+            ->addColumn('country', function ($row) {
                     $cityName = $row->geoip && $row->geoip->city ? ' - '.$row->geoip->city : '';
 
                     $countryName = ($row->geoip ? $row->geoip->country_name : '').$cityName;
@@ -280,11 +280,11 @@ class Stats extends Controller
                     return "$flag $countryName";
                 })
 
-                ->add_column('user', function ($row) use ($username_column) {
+                ->addColumn('user', function ($row) use ($username_column) {
                     return $row->user ? $row->user->$username_column : 'guest';
                 })
 
-                ->add_column('device', function ($row) {
+                ->addColumn('device', function ($row) {
                     $model = ($row->device && $row->device->model && $row->device->model !== 'unavailable' ? '['.$row->device->model.']' : '');
 
                     $platform = ($row->device && $row->device->platform ? ' ['.trim($row->device->platform.' '.$row->device->platform_version).']' : '');
@@ -296,29 +296,30 @@ class Stats extends Controller
                             : '';
                 })
 
-                ->add_column('browser', function ($row) {
+                ->addColumn('browser', function ($row) {
                     return $row->agent && $row->agent
                             ? $row->agent->browser.' ('.$row->agent->browser_version.')'
                             : '';
                 })
 
-                ->add_column('language', function ($row) {
+                ->addColumn('language', function ($row) {
                     return $row->language && $row->language
                         ? $row->language->preference
                         : '';
                 })
 
-                ->add_column('referer', function ($row) {
+                ->addColumn('referer', function ($row) {
                     return $row->referer ? $row->referer->domain->name : '';
                 })
 
-                ->add_column('pageViews', function ($row) {
+                ->addColumn('pageViews', function ($row) {
                     return $row->page_views;
                 })
 
-                ->add_column('lastActivity', function ($row) {
+                ->addColumn('lastActivity', function ($row) {
                     return $row->updated_at->diffForHumans();
                 })
+                ->rawColumns(['id'])
 
                 ->make(true);
     }
