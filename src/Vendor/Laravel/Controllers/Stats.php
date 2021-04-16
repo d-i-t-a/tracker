@@ -2,12 +2,12 @@
 
 namespace PragmaRX\Tracker\Vendor\Laravel\Controllers;
 
-use Yajra\Datatables\Facade\Datatables;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use PragmaRX\Tracker\Vendor\Laravel\Facade as Tracker;
 use PragmaRX\Tracker\Vendor\Laravel\Support\Session;
+use Yajra\DataTables\Facades\DataTables;
 
 class Stats extends Controller
 {
@@ -120,7 +120,7 @@ class Stats extends Controller
             'created_at',
         ]);
 
-        return Datatables::of($query)
+        return DataTables::of($query)
             ->editColumn('route_name', function ($row) {
                 $path = $row->routePath;
 
@@ -210,7 +210,7 @@ class Stats extends Controller
             'updated_at',
         ]);
 
-        return Datatables::of($query)
+        return DataTables::of($query)
                 ->editColumn('updated_at', function ($row) {
                     return "{$row->updated_at->diffForHumans()}";
                 })
@@ -221,14 +221,14 @@ class Stats extends Controller
     {
         $query = Tracker::events($session->getMinutes(), false);
 
-        return Datatables::of($query)->make(true);
+        return DataTables::of($query)->make(true);
     }
 
     public function apiUsers(Session $session)
     {
         $username_column = Tracker::getConfig('authenticated_user_username_column');
 
-        return Datatables::of(Tracker::users($session->getMinutes(), false))
+        return DataTables::of(Tracker::users($session->getMinutes(), false))
                 ->editColumn('user_id', function ($row) use ($username_column) {
                     return "{$row->user->$username_column}";
                 })
@@ -259,7 +259,7 @@ class Stats extends Controller
             'updated_at',
         ]);
 
-        return Datatables::of($query)
+        return DataTables::of($query)
             ->addColumn('id', function ($row) {
                     $uri = route('tracker.stats.log', $row->uuid);
                 
