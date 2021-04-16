@@ -532,9 +532,9 @@ class ServiceProvider extends PragmaRXServiceProvider
 
     protected function registerDatatables()
     {
-        $this->registerServiceProvider('Bllim\Datatables\DatatablesServiceProvider');
+        $this->registerServiceProvider('Yajra\DataTables\DataTablesServiceProvider');
 
-        $this->registerServiceAlias('Datatable', 'Bllim\Datatables\Facade\Datatables');
+        $this->registerServiceAlias('Datatable', 'Yajra\Datatables\Facade\Datatables');
     }
 
     /**

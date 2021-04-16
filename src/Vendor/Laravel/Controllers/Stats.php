@@ -2,7 +2,7 @@
 
 namespace PragmaRX\Tracker\Vendor\Laravel\Controllers;
 
-use Bllim\Datatables\Facade\Datatables;
+use Yajra\Datatables\Facade\Datatables;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
