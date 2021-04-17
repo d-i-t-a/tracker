@@ -26,14 +26,17 @@ class Stats extends Controller
     public function index(Session $session)
     {
         if (!$this->isAuthenticated()) {
+            abort(401);
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.auth_required'));
         }
 
         if (!$this->hasAdminProperty()) {
+            abort(403);
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.miss_admin_prop'));
         }
 
         if (!$this->isAdmin()) {
+            abort(403);
             return View::make('pragmarx/tracker::message')->with('message', trans('tracker::tracker.not_admin'));
         }
 

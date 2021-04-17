@@ -268,9 +268,7 @@ class Tracker
 
     public function getUserId()
     {
-        return $this->config->get('log_users')
-            ? $this->dataRepositoryManager->getCurrentUserId()
-            : null;
+        return $this->dataRepositoryManager->getCurrentUserId();
     }
 
     /**
