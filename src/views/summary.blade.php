@@ -4,22 +4,22 @@
 	<div id="pageViewsLine" class="chart no-padding"></div>
 @stop
 
-@section('page-secondary-contents')
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-sun-o"></i> @lang('tracker::tracker.page_views_by_country')</h3>
-				</div>
-				<div class="panel-body">
-					<div id="pageViewsByCountry" style="height: 450px;"></div>
-				</div>
-			</div>
-		</div>
-	</div><!-- /.row -->
+{{--@section('page-secondary-contents')--}}
+{{--	<div class="row">--}}
+{{--		<div class="col-lg-12">--}}
+{{--			<div class="panel panel-primary">--}}
+{{--				<div class="panel-heading">--}}
+{{--					<h3 class="panel-title"><i class="fa fa-sun-o"></i> @lang('tracker::tracker.page_views_by_country')</h3>--}}
+{{--				</div>--}}
+{{--				<div class="panel-body">--}}
+{{--					<div id="pageViewsByCountry" style="height: 450px;"></div>--}}
+{{--				</div>--}}
+{{--			</div>--}}
+{{--		</div>--}}
+{{--	</div><!-- /.row -->--}}
 
-	@include('pragmarx/tracker::_summaryPiechart')
-@stop
+{{--	@include('pragmarx/tracker::_summaryPiechart')--}}
+{{--@stop--}}
 
 @section('inline-javascript')
 	jQuery(function()
